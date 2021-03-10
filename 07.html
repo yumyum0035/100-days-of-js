@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07 - Testimonials</title>
+
+    <!-- reset CSS -->
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <script src="https://kit.fontawesome.com/7fc3a92343.js" crossorigin="anonymous"></script>
+    <style> /* CSS ahead */
+        /**** imported fonts ****/
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
+
+        html {
+            font-size: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 1rem;
+            font-family: Helvetica, Arial, sans-serif; 
+        }
+
+        main {
+            width: 65%;
+            margin: 5% auto;
+            padding: 20px;
+            border: 2px solid lightcoral;
+            border-radius: 5px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-family: 'Oswald', serif;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 5%;
+        }
+
+        h2 { 
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 25px;
+        }
+
+        p {
+            font-size: 1rem;
+            font-weight: 300;
+            margin: 10px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        section {
+            position: relative;
+        }
+
+        button {
+            opacity: 0.7;
+            text-align: center;
+            text-transform: uppercase;
+            border: none;
+            background: none;
+            margin: 0 50px;
+            display: inline-block;
+        }
+
+        button:hover {
+            opacity: 1;
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+        }
+
+        img {
+            max-width: 150px;
+            border-radius: 10px;
+            z-index: 10;
+        }
+
+
+        #quoteSign {
+            font-size: 5rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        #quoteSign, .fas, .alignedLeft, .alignedRight {
+            color: lightcoral;
+        }
+
+        .alignedLeft, .alignedRight {
+            font-size: 3rem;
+            position: absolute;
+            top: 60%;
+        }
+
+        .alignedLeft {
+            left: 100px;
+        }
+
+        .alignedRight {
+            right: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dog Testimonials</h1>
+    <p>Good boys. All of them.</p>
+    <main>
+        <article id="textArea">
+            <div id="image"></div>
+            <h2 id="client_name">client_name</h2>
+            <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+            <p id="testimonial">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis iusto, hic fugit blanditiis tempora rem illo unde, autem cupiditate saepe deleniti vel dignissimos.</p>
+            <p id="quoteSign">”</p>
+
+            <button class="alignedLeft" id="back"><i class="fas fa-chevron-circle-left"></i></i></button>
+            <button class="alignedRight" id="forward"><i class="fas fa-chevron-circle-right"></i></i></button>
+        </article>
+    </main>
+    
+    <script> //js ahead
+        "use strict";
+        /**** DAY 07 ****/
+        /* explanation:
+            This project seems to combines two of the previous completed projects. It involves pieces of the Background Image Slider JavaScript Project and the Random Quotes JavaScript Project.  This project can easily be completed using an array of objects, but John adds a bit of complexity (if you're a beginner) to the project by using a Constructor function.
+        */
+        var testimony = [
+            {
+                quote: "Hello, this is Dog. I was rated 10/10 in good boys. Have some lorem ipsum to make some extra space on these testimonials to also see that they look good. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis iusto, hic fugit blanditiis tempora rem illo unde, autem cupiditate saepe deleniti vel dignissimos.",
+                clientName: "Dog",
+                img: "img/dog-01.jpg"
+            },
+            {
+                quote: "I like playing ball and was also rated 10/10 in good boys. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis iusto, hic fugit blanditiis tempora rem illo unde, autem cupiditate saepe deleniti vel dignissimos.",
+                clientName: "Pogchamp",
+                img: "img/dog-02.jpg"
+            },
+            {
+                quote: "Hello! I too was rated 10/10 in good boys! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis iusto, hic fugit blanditiis tempora rem illo unde, autem cupiditate saepe deleniti vel dignissimos.",
+                clientName: "Larry",
+                img: "img/dog-03.jpg"
+            }
+        ];
+        var current = 0;
+        function build() {
+            document.getElementById("image").innerHTML = "<img src=\"" + testimony[current].img + "\" alt=\"\">";
+            document.getElementById("client_name").innerHTML = "" + testimony[current].clientName;
+            document.getElementById("testimonial").innerHTML = "" + testimony[current].quote;
+        }
+        build();
+        function forward() {
+            if (current >= (testimony.length - 1)) {
+                current = 0;
+            }
+            else {
+                current++;
+            }
+            build();
+        }
+        function back() {
+            if (current <= 0) {
+                current = testimony.length - 1;
+            }
+            else {
+                current--;
+            }
+            build();
+        }
+        document.getElementById("forward").addEventListener("click", forward);
+        document.getElementById("back").addEventListener("click", back);
+        /* what did we learn today
+            - ha sido interesante ver como se pueden coger propiedades del objeto y se pueden usar de forma independiente, de forma que no hay que crear tantas variables :O
+        */
+
+    </script>
+</body>
+</html>
