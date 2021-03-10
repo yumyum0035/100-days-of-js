@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05 - Counter</title>
+
+    <!-- reset CSS -->
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <style> /* CSS ahead*/
+        /**** imported fonts ****/
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
+
+        html {
+            font-size: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 1rem;
+            font-family: Helvetica, Arial, sans-serif; 
+        }
+
+        main {
+            position: relative;
+            width: 500px;
+            margin: 200px auto;
+            padding: 20px;
+            background-color: transparent;
+            border: 2px solid black;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-family: 'Oswald', serif;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 5%;
+        }
+
+        p {
+            font-size: 5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        button {
+            color: black;
+            text-align: center;
+            font-size: .75rem;
+            text-transform: uppercase;
+            border: 2px solid black;
+            background: none;
+            padding: 10px;
+            border-radius: 5px;
+            width: 125px;
+            margin: 0 50px;
+            display: inline-block;
+        }
+
+        input {
+            margin: 50px auto;
+            width: 100%;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <h1>This is a counter</h1>
+        <p id="number"></p>
+        <button id="lower">lower count</button>
+        <button id="add">add count</button>
+    </main>
+    
+    <script> //js ahead
+        "use strict";
+        /**** DAY 05 ****/
+        /* explanation:
+            I found this project super easy. It really is a beginner's program. The idea was to click on either one of two buttons which registered the count of the on page element.
+        */
+        var counter = 0;
+        document.getElementById("number").innerHTML = "" + counter;
+        var add = function () {
+            counter++;
+            document.getElementById("number").innerHTML = "" + counter;
+        };
+        var low = function () {
+            if (counter > 0) {
+                counter--;
+                document.getElementById("number").innerHTML = "" + counter;
+            }
+        };
+        document.getElementById("lower").addEventListener("click", low);
+        document.getElementById("add").addEventListener("click", add);
+        /* what did we learn today
+            - nada en particular (lol)
+            - recordar las funciones arrow
+        */ 
+
+    </script>
+</body>
+</html>
