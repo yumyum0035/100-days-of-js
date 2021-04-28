@@ -12,3 +12,4 @@ I decided to make a small js/ts project a day, but also did some CSS practise in
 * day 6: Image Slider
 * day 7: Testimonials
 * day 8: Filter
+* day 9: Modal box
