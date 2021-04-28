@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08 - Filter project</title>
+
+    <!-- reset CSS -->
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <script src="https://kit.fontawesome.com/7fc3a92343.js" crossorigin="anonymous"></script>
+
+    <style>
+        /**** imported fonts ****/
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
+
+        * { box-sizing: border-box; }
+
+        :root {
+            --accent-color: #69b6cf;
+            --light-gray: #ddd;
+            --box-shadow: 0 5px 10px #ddd;
+            --helvetica: Helvetica, sans-serif;
+            --oswald: 'Oswald', Helvetica, sans-serif;
+            --border: 2px solid var(--accent-color);
+        }
+        
+        html { font-size: 16px; }
+        
+        body {
+            font-family: var(--helvetica);
+            font-size: 1rem;
+        }
+
+        main {
+            width: 65vw;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-family: var(--oswald);
+            margin: 50px;
+        }
+
+        h2 { 
+            font-size: 1.5rem;
+            margin: 25px;
+        }
+
+        h1, h2 {
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1rem;
+            font-weight: 300;
+            margin: 10px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        #items {
+            display: grid;
+            grid-gap: 25px;
+            grid-template-columns: repeat(2, auto);
+            grid-template-rows: auto;
+
+            justify-content: center;
+            justify-items: center;
+            align-items: baseline;
+        }
+
+        .searchBar {
+            margin: 50px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        #searchInput {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: var(--accent-color);
+
+            background: none;
+            outline: none;
+            border: none;
+            border-bottom: var(--border);
+
+            width: 100%;
+            padding: 10px;
+        }
+
+        #searchIcon {
+            margin: 0 15px;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .storeItem{
+            background-color: white;
+            max-width: 200px;
+            min-height: 250px;
+            border-radius: 3px;
+            padding: 10px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .storeItem h2 {
+            margin: 10px;
+        }
+
+        .storeItem img {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            object-fit: cover;
+        }
+
+        .tags {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--accent-color);
+        }
+
+        .tags::before {
+            content: "#";
+        }
+
+        /* media queries: mobile first */
+        @media (min-width: 480px) { } /* mobile */
+        
+        @media (min-width: 768px) { /* tablet: 768 o más */
+            #items {
+                grid-template-columns: repeat(3, auto);
+            }
+        }
+        
+        @media (min-width: 1024px) { /* desktop: 1024px o mas */
+            #items {
+                grid-template-columns: repeat(4, auto);
+            }
+        }    
+    </style>
+</head>
+<body>
+    <main> 
+        <h1>Filter</h1>
+        <div class="searchBar">
+            <i id="searchIcon" class="fas fa-search"></i> <input type="text" id="searchInput"/> 
+        </div>
+        <p id="searchResult"></p>
+        <section id="items">
+        </section>
+    </main>
+    
+    <script>
+        "use strict";
+        /**** DAY i8 ****/
+        //the idea is to make a filter bar that sorts items
+        var searchBar = document.getElementById("searchInput");
+        var food = [
+            {
+                title: "Donuts",
+                img: "donut.jpg",
+                tags: ["donut"],
+                description: "Check out our delicious donuts!",
+                id: "item-donut"
+            },
+            {
+                title: "Sea Salt Icecream",
+                img: "seasalt.jpg",
+                tags: ["sea", "salt", "ice", "cream"],
+                description: "Straight from Twilight Town",
+                id: "item-seasalt"
+            },
+            {
+                title: "Macarons",
+                img: "macaron.jpg",
+                tags: ["macaron"],
+                description: "Most elegant, most delicious.",
+                id: "item-macaron"
+            },
+            {
+                title: "Parfait",
+                img: "parfait.jpg",
+                tags: ["parfait"],
+                description: "Treat yourself with this sweet fruity treat!",
+                id: "item-parfait"
+            },
+            {
+                title: "Fluffy pancakes",
+                img: "fpancake.jpg",
+                tags: ["fluffy", "pancakes"],
+                description: "Fluffiest pancakes in town!",
+                id: "item-fpancake"
+            },
+            {
+                title: "Flan",
+                img: "flan.jpg",
+                tags: ["flan", "caramel"],
+                description: "A classic with caramel",
+                id: "item-flan"
+            },
+            {
+                title: "Roll Cake",
+                img: "rollcake.jpg",
+                tags: ["roll", "cake"],
+                description: "Rolling in the 90s",
+                id: "item-rollcake"
+            },
+            {
+                title: "Cinnamon Roll",
+                img: "cinnamon.jpg",
+                tags: ["cinnamon", "roll"],
+                description: "Sunshine and happiness",
+                id: "item-cinnamon"
+            }
+        ];
+        function createItem(items) {
+            for (var i in items) { //creates an article that contains the elements for each item card
+                var article = document.createElement("article");
+                article.id = "" + items[i].id;
+                article.className = "storeItem";
+                document.getElementById("items").appendChild(article);
+                var image = document.createElement("img");
+                image.src = "img/" + items[i].img;
+                image.alt = "";
+                document.getElementById("" + items[i].id).appendChild(image);
+                var title = document.createElement("h2");
+                title.innerHTML = "" + items[i].title;
+                document.getElementById("" + items[i].id).appendChild(title);
+                var description = document.createElement("p");
+                description.innerHTML = "" + items[i].description;
+                document.getElementById("" + items[i].id).appendChild(description);
+            }
+        }
+        createItem(food);
+        function showItems(check, id) {
+            var show = check ? "grid" : "none";
+            document.getElementById(id).style.display = show;
+        }
+        function filterItems(searchString) {
+            var filtered;
+            var included = false;
+            if (searchString) { /* input bar written */
+                filtered = food.filter(function (anyItem) { return anyItem.tags.includes(searchString); });
+                /* hides all elements */
+                for (var i in food) {
+                    showItems(included, food[i].id);
+                }
+                for (var i in food) { /* shows only filtered elements */
+                    included = filtered[i].tags.includes(searchString);
+                    if (included) {
+                        showItems(included, filtered[i].id);
+                    }
+                }
+            }
+            else { /* input bar erased */
+                for (var i in food) {
+                    showItems(!included, food[i].id);
+                }
+            }
+        }
+        searchBar.addEventListener("keyup", function () { return filterItems(searchBar.value); });
+        /* what did we learn today
+            - recordar como mostrar en web lo que escribimos en el input!
+
+            - crear elementos de HTML de forma dinámica con un for! seguramente hay una forma mejor de hacer esto pero usando un objeto y un for me parece una forma bastante okay de conseguirlo :O
+            - he tardado dos o tres dias en conseguir eso solo tho. cry.
+
+            *read in monkey island's narrator voice*
+            
+            days later:
+            - hemos conseguido un filtro, pero no se como aplicarlo a la web en si :')....
+            - eliminar elementos del DOM (solo sabia crearlos)
+
+            ...more days later:
+            - hemos aplicado el filtro!! en la web!! pero lo hacia al reves o mal.
+            - al final necesitaba dos fors :^)
+
+        */ 
+
+    </script>
+</body>
+</html>
