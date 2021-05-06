@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 - Hex Change Background Color Project</title>
+    
+    <!-- reset CSS -->
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <style> /* CSS here */
+        html {
+            font-size: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 1rem;
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: lightcoral;
+        }
+
+        main {
+            position: relative;
+        }
+
+        p {
+            font-size: 1.5rem;
+            font-family: monospace;
+            color: white;
+            margin: 46vh auto;
+            text-align: center;
+        }
+
+        button {
+            border: 1px solid white;
+            background: none;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100px;
+            position: absolute;
+            top: 50vh;
+            left: 50%;
+            margin-left: -50px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <p id="currentColor">#F08080</p>
+    <button id="clickMe">Click me!</button>
+    <script> /* js script here */
+        "use strict";
+        /**** DAY 02 ****/
+        /* explanation:
+            The idea was to make a random hex value created from an array of all the possible different hex values, loop through them, and concatenate 6 different values to a String that begun with the # character.
+            In other words, once the HEX value string is created, you'd simply change the background color to that value just like in the change background color project.
+        */
+        var arrColors = ["#FF5733", "#3498DB", "#AF7AC5", "#F7DC6F", "#48C9B0", "#F8C471", "#EC7063", "#5DADE2", "#A9DFBF", "#F08080", "#CCCCFF", "#40E0D0", "#FFBF00", "#FF69B4", "#DB7093", "#F08080"];
+        function colorPrint() {
+            var randomColor = arrColors[Math.floor(Math.random() * arrColors.length)];
+            //accede a colores de forma aleatoria
+            document.body.style.backgroundColor = randomColor; //cambiamos el color de fondo del body
+            document.getElementById("currentColor").innerText = randomColor;
+        }
+        /* hasta aqui muetra los colores por consola. ahora hay que hacer un botón que hace al darle acceda a una posición (aleatoria) del array y la use. (how) */
+        document.getElementById("clickMe").addEventListener("click", colorPrint);
+        /* que hemos aprendido hoy?
+            - una vez se me ha hecho click! en el cerebro qiue tenía que acceder a una posición del array todo ha salido bastante fluído.
+            - he ido bastante como por instinto y ha salido bien (lol)
+        */ 
+
+
+
+    </script>
+</body>
+</html>

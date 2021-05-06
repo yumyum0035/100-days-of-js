@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03 - Random Quotes Project</title>
+    
+    <!-- reset CSS -->
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <style> /* CSS */
+        /**** imported fonts ****/
+        @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+
+        html {
+            font-size: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 1rem;
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: #A9DFBF;
+        }
+
+        main {
+            position: relative;
+            width: 500px;
+            margin: 200px auto;
+            padding: 20px;
+            background-color: transparent;
+            border: 2px solid white;
+        }
+
+        p {
+            margin-bottom: 25px;
+        }
+
+        button {
+            border: 1px solid white;
+            background: none;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 5px;
+            width: 150px;
+            position: absolute;
+            top: 40vh;
+            left: 50%;
+            margin-left: -75px;
+            display: block;
+        }
+
+        #comilla {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 5rem;
+        }
+
+        #author {
+            font-family: 'Prata', serif;
+            text-align: right;
+            color: white;
+            text-align: right;
+            font-size: 1rem;
+        }
+
+        #quote {
+            font-family: 'Prata', serif;
+            color: white;
+            text-align: left;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <p id="quote"><span id="comilla">“</span>Love all, trust a few, do wrong to none.”</p>
+        <p id="author">– William Shakespeare</p>
+        <button id="clickMe">Generate Quote</button>
+    </main>
+    
+    <script> /* script ahead */
+        "use strict";
+        /**** DAY 03 ****/
+        /* explanation:
+            This Random Quotes project is fairly simple. It calls for you to access the properties on an object that's embedded inside of an Array. When the “Generate Quote” button is pressed, it triggers a change in quote and the author who said it.
+        */
+        //30 quotes ahead (lol)
+        var Quotes = [
+            {
+                quote: "Love has nothing to do with what you are expecting to get –only with what you are expecting to give– which is everything.",
+                author: "Katharine Hepburn"
+            },
+            {
+                quote: "Where there is love there is life.",
+                author: "Mahatma Gandhi"
+            },
+            {
+                quote: "Whatever our souls are made of, his and mine are the same.",
+                author: "Emily Brontë"
+            },
+            {
+                quote: "It is a curious thought, but it is only when you see people looking ridiculous that you realize just how much you love them.",
+                author: "Agatha Christie"
+            },
+            {
+                quote: "The greatest happiness of life is the conviction that we are loved; loved for ourselves, or rather, loved in spite of ourselves.",
+                author: "Victor Hugo"
+            },
+            {
+                quote: "In love there are two things– bodies and words.",
+                author: "Joyce Carol Oates"
+            },
+            {
+                quote: "Love makes your soul crawl out from its hiding place.",
+                author: "Zora Neale Hurston"
+            },
+            {
+                quote: "There is always madness in love. But there is also always some reason in madness",
+                author: "Friedrich Nietzsche"
+            },
+            {
+                quote: "Nobody has ever measured, even poets, how much a heart can hold.",
+                author: "Zelda Fitzgerald"
+            },
+            {
+                quote: "Have enough courage to trust love one more time and always one more time.",
+                author: "Maya Angelou"
+            },
+            {
+                quote: "Love does not consist in gazing at each other, but in looking outward together in the same direction.",
+                author: "Antoine de Saint-Exupéry"
+            },
+            {
+                quote: "Love is a fire. But whether it is going to warm your hearth or burn down your house, you can never tell.",
+                author: "Joan Crawford"
+            },
+            {
+                quote: "I love her and it is the beginning of everything.",
+                author: "F. Scott Fitzgerald"
+            },
+            {
+                quote: "When you realize you want to spend the rest of your life with somebody, you want the rest of your life to start as soon as possible.",
+                author: "Nora Ephron"
+            },
+            {
+                quote: "Never love anyone who treats you like you're ordinary.",
+                author: "Oscar Wilde"
+            },
+            {
+                quote: "Lots of people want to ride with you in the limo, but what you want is someone who will take the bus with you when the limo breaks down.",
+                author: "Oprah Winfrey"
+            },
+            {
+                quote: "Love all, trust a few, do wrong to none.",
+                author: "William Shakespeare"
+            },
+            {
+                quote: "There is nothing I would not do for those who are really my friends. I have no notion of loving people by halves; it is not my nature.",
+                author: "Jane Austen"
+            },
+            {
+                quote: "Love is an irresistible desire to be irresistibly desired.",
+                author: "Robert Frost"
+            },
+            {
+                quote: "The giving of love is an education in itself.",
+                author: "Eleanor Roosevelt"
+            },
+            {
+                quote: "Life is the flower for which love is the honey.",
+                author: "Victor hugo"
+            },
+            {
+                quote: "Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.",
+                author: "Lao Tzu"
+            },
+            {
+                quote: "We are most alive when we are in love.",
+                author: "John Updike"
+            },
+            {
+                quote: "The only thing we never get enough of is love; and the only thing we never give enough of is love.",
+                author: "Henry Miller"
+            },
+            {
+                quote: "There is only one happiness in this life, to love and be loved.",
+                author: "George Sand"
+            },
+            {
+                quote: "To love and be loved is to feel the sun from both sides.",
+                author: "David Viscott"
+            },
+            {
+                quote: "Love does not dominate; it cultivates.",
+                author: "Johann Wolfgang Von Goethe"
+            },
+            {
+                quote: "Love is the whole thing. We are only pieces.",
+                author: "Rumi"
+            },
+            {
+                quote: "Love is composed of a single soul inhabiting two bodies.",
+                author: "Aristotle"
+            },
+            {
+                quote: "There is no charm equal to tenderness of the heart.",
+                author: "Jane Austen"
+            },
+        ];
+        //color array from day 2
+        var arrColors = [
+            "#FF5733", "#3498DB", "#AF7AC5", "#F7DC6F", "#48C9B0", "#F8C471", "#EC7063", "#5DADE2", "#A9DFBF", "#F08080", "#CCCCFF", "#40E0D0", "#FFBF00", "#FF69B4", "#DB7093", "#F08080"
+        ];
+        function bgcolor() {
+            var randomColor = arrColors[Math.floor(Math.random() * arrColors.length)];
+            document.body.style.backgroundColor = randomColor;
+        }
+        function randomQuote() {
+            var random = Quotes[Math.floor(Math.random() * Quotes.length)];
+            var quote = random.quote;
+            var author = random.author;
+            document.getElementById("quote").innerHTML = "<span id='comilla'>“</span>" + quote + '”';
+            document.getElementById("author").innerHTML = "\u2013 " + author;
+            bgcolor();
+        }
+        document.getElementById("clickMe").addEventListener("click", randomQuote);
+        /* what we learned today:
+            - Como acceder a un array de objetos. en typescript, para que me deje acceder al objeto en el array no hay que especificar el tipo de array
+            - hacer el random fue básicamente copiar el random del ejercicio anterior, pero entendiendo como hacer que acceda a los valores del object tambien!
+            - he decidido reutilizar el código del random color bg para hacer que se vea más bonito (?)
+        */ 
+    </script>
+</body>
+</html>

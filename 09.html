@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+ 
+        <!-- reset -->
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css' />
+ 
+        <!-- font awesome -->
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' integrity='sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==' crossorigin='anonymous' />
+ 
+        <!-- css -->
+        <style>
+            /**** imported fonts ****/
+            @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
+
+            * { box-sizing: border-box; }
+
+            :root {
+                --accent-color: #69b6cf;
+                --light-gray: #ddd;
+                --box-shadow: 0 5px 10px #ddd;
+                --helvetica: Helvetica, sans-serif;
+                --oswald: 'Oswald', Helvetica, sans-serif;
+                --border: 2px solid var(--accent-color);
+            }
+            
+            html { font-size: 16px; }
+            
+            body {
+                font-family: var(--helvetica);
+                font-size: 1rem;
+            }
+
+            main {
+                width: 65vw;
+                margin: 50px auto;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 3rem;
+                font-family: var(--oswald);
+                margin: 50px;
+            }
+
+            h2 { 
+                font-size: 1.5rem;
+                margin: 25px;
+            }
+
+            h1, h2 {
+                text-transform: uppercase;
+                text-align: center;
+            }
+
+            p {
+                font-size: 1rem;
+                font-weight: 300;
+                margin: 10px;
+                padding: 5px;
+                text-align: center;
+            }
+
+            section { position: relative; }
+
+            button {
+                color: white;
+                opacity: 0.7;
+                text-align: center;
+                text-transform: uppercase;
+                border: none;
+                background: none;
+                margin: 0 50px;
+                display: inline-block;
+            }
+
+            button:hover { opacity: 1; }
+
+            .fas { font-size: 3rem; }
+
+            .alignedLeft {
+                position: absolute;
+                left: -50px;
+                top: 350px;
+            }
+
+            .alignedRight {
+                position: absolute;
+                right: -50px;
+                top: 350px;
+            }
+
+            #gallery-thumbnails {
+                display: grid;
+                grid-template-columns: repeat(6, 100px);
+                grid-gap: 10px;
+
+                justify-content: center; /* solo funciona si el tamaño de la columna no es 1fr! */
+                justify-items: center;
+                align-items: center;
+            }
+
+            .thumbnails {
+                width: 100px;
+                height: 250px;
+                object-fit: cover;
+
+                box-shadow: var(--box-shadow);
+                border-radius: 2px;
+            }
+
+            /*------------- modal-box -------------- */
+            .modalbox {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0,0,0,0.7);
+            }
+
+            .modal-content {
+                margin: auto;
+                display: block;
+                width: 100%;
+                max-width: 700px;
+                background: none;
+            }
+
+            .modal-gallery { display: none; }
+
+            .modalbox img {
+                width:100%;
+                height: auto;
+                margin: 25% 0;
+            }
+
+            /* ---------- modal buttons ------------ */
+            #closeButton {
+                cursor: pointer;
+                position: absolute;
+                top: 15px;
+                right: 35px;
+                color: white;
+                font-size: 40px;
+                font-weight: bold;
+            }
+
+            #closeButton:hover, #closeButton:focus {
+                color: var(--light-gray);
+                text-decoration: none;
+            }
+
+            #prev, #next {
+                cursor: pointer;
+                position: absolute;
+                top: 50vh;
+                width: auto;
+                padding: 16px;
+                margin-top: -50px;
+                color: white;
+                background: var(--side-color);
+                border-radius: 2px;
+                font-weight: bold;
+                font-size: 20px;
+                border-radius: 0 3px 3px 0;
+            }
+
+            #next { right: 0; }
+
+            #prev { left: 0; }
+
+            #prev:hover, #next:hover {
+                background-color: rgba(255, 255, 255,0.5);
+                color: var(--accent-color);
+            }
+
+            /*------------------- end of modal-box --------------------*/
+        </style>
+ 
+        <title>09: Modal</title>
+    </head>
+    <body>
+        <main>
+            <h1>Modal box</h1>
+            <section id="gallery-thumbnails"></section>
+
+            <div id="modal-box" class="modalbox">
+                <span id="closeButton">&times;</span>
+                <div class="modal-content" id="modal">
+                    <!-- slides -->                              
+                    <article id="modal-gallery">
+                    </article>
+
+                    <a id="prev">&#10094;</a>
+                    <a id="next">&#10095;</a>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            "use strict";
+            /*** day 09 ***/
+            /* we're doing a modal gallery today */
+            var _a, _b, _c;
+            var gallery = [
+                { src: "raccoon-01.jpg", currentImage: 0 },
+                { src: "raccoon-02.jpg", currentImage: 1 },
+                { src: "raccoon-03.jpg", currentImage: 2 },
+                { src: "raccoon-04.jpg", currentImage: 3 },
+                { src: "raccoon-05.jpg", currentImage: 4 },
+                { src: "raccoon-06.jpg", currentImage: 5 },
+            ];
+            var current = 0;
+            function thumbnailGallery() {
+                var _loop_1 = function (i) {
+                    var article = document.createElement("article");
+                    article.id = "item" + i;
+                    document.getElementById("gallery-thumbnails").appendChild(article);
+                    var image = document.createElement("img");
+                    image.src = "img/" + gallery[i].src;
+                    image.alt = "";
+                    image.className = "thumbnails";
+                    image.addEventListener("click", function () {
+                        modal(true);
+                        showImage(parseInt(i));
+                        current = gallery[i].currentImage;
+                        console.log(gallery[i].src);
+                    });
+                    document.getElementById("item" + i).appendChild(image);
+                };
+                for (var i in gallery) {
+                    _loop_1(i);
+                }
+            }
+            thumbnailGallery();
+            function showImage(index) {
+                document.getElementById("modal-gallery").innerHTML = "<img src=\"img/" + gallery[index].src + "\" alt=\"\">";
+            }
+            function nextPage(forward) {
+                current = forward ? current + 1 : current - 1;
+                if (current > gallery.length - 1) {
+                    current = 0;
+                }
+                if (current < 0) {
+                    current = gallery.length - 1;
+                }
+                showImage(current);
+            }
+            function modal(check) {
+                var show = check ? "block" : "none";
+                document.getElementById("modal-box").style.display = show;
+            }
+            (_a = document.getElementById("next")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () { return nextPage(true); });
+            (_b = document.getElementById("prev")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", function () { return nextPage(false); });
+            (_c = document.getElementById("closeButton")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", function () { return modal(false); });
+
+        </script>
+    </body>
+</html>

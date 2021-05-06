@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04 - Pass the message</title>
+
+    <!-- reset CSS -->
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <style> /* CSS ahead*/
+        /**** imported fonts ****/
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
+
+        html {
+            font-size: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 1rem;
+            font-family: Helvetica, Arial, sans-serif; 
+        }
+
+        main {
+            position: relative;
+            width: 500px;
+            margin: 200px auto;
+            padding: 20px;
+            background-color: transparent;
+            border: 2px solid black;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-family: 'Oswald', serif;
+            text-transform: uppercase;
+            margin: 5%;
+        }
+
+        p {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        button {
+            border: 2px solid black;
+            background: none;
+            color: black;
+            text-align: center;
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 5px;
+            width: 150px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        input {
+            margin: 50px auto;
+            width: 100%;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <h1>A message you would like to pass</h1>
+        <input type="text" id="inputText">
+        <article id="textArea">
+        </article>
+        <button id="clickMe">Submit</button>
+    </main>
+    
+    <script> //js ahead
+        "use strict";
+        /**** DAY 04 ****/
+        /* explanation:
+            This project challenges you to select the input element's value from the DOM. When you click on the “Submit” button you'll see the message inputted in the box in the “Last Message Delivered” Section. For me this project was fairly easy.
+
+        */
+        var message;
+        function updateMessage() {
+            message = document.getElementById("inputText").value;
+            if (message === undefined || message === "") {
+                document.getElementById("textArea").innerHTML = "";
+            }
+            else if (message != undefined) {
+                document.getElementById("textArea").innerHTML = "<p>Last message delivered:</p><p>" + message + "</p>";
+            }
+        }
+        document.getElementById("clickMe").addEventListener("click", updateMessage);
+        /* what did we learn today
+            - hemos repasado el acceder al valor de input del html.
+            - no mucho más, la verdad.
+        */ 
+
+    </script>
+</body>
+</html>
