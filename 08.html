@@ -221,18 +221,22 @@
             }
         ];
         function createItem(items) {
-            for (var i in items) { //creates an article that contains the elements for each item card
+            for (var i in items) {
+                //creates an article that contains the elements for each item card
                 var article = document.createElement("article");
                 article.id = "" + items[i].id;
                 article.className = "storeItem";
                 document.getElementById("items").appendChild(article);
+                //creates image and appends it to the previous article
                 var image = document.createElement("img");
                 image.src = "img/" + items[i].img;
                 image.alt = "";
                 document.getElementById("" + items[i].id).appendChild(image);
+                //creates title
                 var title = document.createElement("h2");
                 title.innerHTML = "" + items[i].title;
                 document.getElementById("" + items[i].id).appendChild(title);
+                //creates description
                 var description = document.createElement("p");
                 description.innerHTML = "" + items[i].description;
                 document.getElementById("" + items[i].id).appendChild(description);
@@ -240,32 +244,34 @@
         }
         createItem(food);
         function showItems(check, id) {
-            var show = check ? "grid" : "none";
-            document.getElementById(id).style.display = show;
+            document.getElementById(id).style.display = check ? "grid" : "none";
         }
         function filterItems(searchString) {
             var filtered;
             var included = false;
-            if (searchString) { /* input bar written */
-                filtered = food.filter(function (anyItem) { return anyItem.tags.includes(searchString); });
-                /* hides all elements */
-                for (var i in food) {
-                    showItems(included, food[i].id);
-                }
-                for (var i in food) { /* shows only filtered elements */
-                    included = filtered[i].tags.includes(searchString);
-                    if (included) {
-                        showItems(included, filtered[i].id);
-                    }
-                }
+            filtered = food.filter(function (anyItem) { return anyItem.tags.includes(searchString); });
+            /* hides all elements */
+            for (var i in food) {
+                showItems(included, food[i].id);
             }
-            else { /* input bar erased */
-                for (var i in food) {
-                    showItems(!included, food[i].id);
+            for (var i in food) { /* shows only filtered elements */
+                included = filtered[i].tags.includes(searchString);
+                if (included) {
+                    showItems(included, filtered[i].id);
                 }
             }
         }
-        searchBar.addEventListener("keyup", function () { return filterItems(searchBar.value); });
+        function handleKey() {
+            if (searchBar.value) { /* input bar written */
+                filterItems(searchBar.value);
+            }
+            else { /* input bar erased */
+                for (var i in food) {
+                    showItems(true, food[i].id);
+                }
+            }
+        }
+        searchBar.addEventListener("keyup", handleKey);
         /* what did we learn today
             - recordar como mostrar en web lo que escribimos en el input!
 
@@ -282,7 +288,7 @@
             - hemos aplicado el filtro!! en la web!! pero lo hacia al reves o mal.
             - al final necesitaba dos fors :^)
 
-        */ 
+        */
 
     </script>
 </body>
